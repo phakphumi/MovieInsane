@@ -1,19 +1,17 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="md" variant="faded" sticky="true">
+    <b-navbar toggleable="sm" variant="light" sticky="true">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-      <b-navbar-brand :to="{ name: '' }">
+      <b-navbar-brand :to="{ name: 'NewArrival' }">
         <img src="./assets/logo.png" width="40" height="40" alt="">
         MovieInsane
       </b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
-
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item :to="{ name: '' }" id="nav-new-arrival" class="active">New Arrival</b-nav-item>
-          <b-nav-item :to="{ name: 'nowshowing' }" id="nav-now-showing">Now Showing</b-nav-item>
-          <b-nav-item :to="{ name: 'comingsoon' }" id="nav-coming-soon">Coming Soon</b-nav-item>
-
+          <b-nav-item :to="{ name: 'NewArrival' }" active-class>New Arrival</b-nav-item>
+          <b-nav-item :to="{ name: 'NowShowing' }">Now Showing</b-nav-item>
+          <b-nav-item :to="{ name: 'ComingSoon' }">Coming Soon</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
