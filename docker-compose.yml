@@ -1,0 +1,10 @@
+version: '2'
+services:
+  view:
+    build: ./view
+    container_name: view
+    volumes:
+     - ./view/src:/view/src
+    command: npm start
+    ports:
+     - "8080:8080"

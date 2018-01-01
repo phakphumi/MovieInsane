@@ -1,0 +1,63 @@
+<template>
+  <div>
+    <b-carousel id="carousel"
+                style="text-shadow: 1px 1px 2px #333;"
+                controls
+                background="#ababab"
+                :interval="3000"
+                v-model="slide"
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
+    >
+
+      <!-- Text slides with image -->
+      <b-carousel-slide caption="First slide"
+                        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+                        img-src="https://lorempixel.com/1024/480/technics/2/"
+      ></b-carousel-slide>
+
+      <!-- Slides with custom text -->
+      <b-carousel-slide img-src="https://lorempixel.com/1024/480/technics/4/">
+        <h1>Hello world!</h1>
+      </b-carousel-slide>
+
+      <!-- Slides with image only -->
+      <b-carousel-slide img-src="https://lorempixel.com/1024/480/technics/8/">
+      </b-carousel-slide>
+
+      <!-- Slides with img slot -->
+      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
+      <b-carousel-slide>
+        <img slot="img" class="d-block img-fluid w-100" width="1024" height="480"
+             src="https://lorempixel.com/1024/400/technics/5/" alt="image slot">
+      </b-carousel-slide>
+
+      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          eros felis, tincidunt a tincidunt eget, convallis vel est. Ut pellentesque
+          ut lacus vel interdum.
+        </p>
+      </b-carousel-slide>
+
+    </b-carousel>
+
+  </div>
+</template>
+  
+<script>
+export default {
+  name: 'NewArrival'
+}
+</script>
+
+<style>
+.carousel-item {
+  height: 89.6vh;
+  min-height: 300px;
+}
+.carousel-item > img {
+  height: inherit;
+}
+</style>
