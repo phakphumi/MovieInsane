@@ -1,10 +1,32 @@
 version: '2'
 services:
-  view:
-    build: ./view
-    container_name: view
+  client:
+    build: ./client
+    container_name: client
     volumes:
-     - ./view/src:/view/src
+      - ./client/src:/client/src
     command: npm start
     ports:
-     - "8080:8080"
+      - "8080:8080"
+    links: 
+      - server
+  server:
+    build: ./server
+    container_name: server
+    restart: always
+    volumes: 
+      - ./server/graphql:/server/graphql
+      - ./server/model:/server/model
+      - ./server/server.js:/server/server.js
+    command: npm start
+    ports:
+      - "10101:10101"
+    links:
+      - database
+  database:
+    container_name: database
+    image: mongo
+    volumes:
+      - ./server/data:/data/db
+    ports:
+      - "27017:27017"
