@@ -1,29 +1,29 @@
 <template>
   <div>
-    <h4 v-if='loading'>Loading...... </h4>
-    <div v-for='post in allPost' :key='post.id'>
-      <router-link :to='post.id' exact>
-        <h3>{{post.title}}</h3>
-      </router-link>
-      <p>{{post.content}}</p>
-    </div>
+    <h3>{{ postById.title }}</h3>
+    <p>{{ postById.content }}</p>
   </div>
 </template>
 
 <script>
-import { ALL_POST_QUERY } from '../graphql/all_post'
+import { POST_BY_ID } from '../graphql/post_by_id'
 
 export default {
-  name: 'ComingSoon',
   data () {
     return {
-      loading: 0,
-      allPost: []
+      postById: {},
+      loading: 0
     }
   },
+  props: ['id'],
   apollo: {
-    allPost: {
-      query: ALL_POST_QUERY
+    postById: {
+      query: POST_BY_ID,
+      variables () {
+        return {
+          id: this.id
+        }
+      }
     }
   }
 }

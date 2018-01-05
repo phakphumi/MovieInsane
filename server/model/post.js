@@ -4,7 +4,7 @@ const postSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    minlength: 10
+    minlength: 3
   },
   content: {
     type: String,
