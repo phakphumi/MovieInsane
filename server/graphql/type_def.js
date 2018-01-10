@@ -1,15 +1,37 @@
 module.exports = `
-  type Post {
-    id: ID!
+  type Movie {
+    id: ID
     title: String!
-    content: String!
-    createdAt: String!
+    plot: String
+    genre: String
+    director: String
+    actors: String
+    poster: String
+    bannerURL: String
+    country: String
+    production: String
+    released: String
+    runtime: String
+    imdbRating: String
+    rottenRating: String
+    metacriticRating: String
+    status: String
+    searchStatus: String
+    comments: [Comment]
+  }
+  type Comment {
+    fb_id: String!
+    text: String!
   }
   type Query {
-      allPost: [Post]!
-      postById(id: ID!): Post!
+    allMovie: [Movie]!
+    comingMovie: [Movie]!
+    newMovie: [Movie]!
+    nowMovie: [Movie]!
+    movieByTitle(title: String!): Movie!
   }
   type Mutation {
-    createPost(title: String!, content: String!): Post
+    addMovie(title: String!, bannerURL: String!): Movie
+    updateMovieStatus(title: String!, status: String!): Movie
   }
 `

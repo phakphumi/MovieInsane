@@ -1,6 +1,6 @@
-const Post = require('./post')
+const Movie = require('./movie')
 
 let DB = {}
-DB.Post = Post
+DB.Movie = Movie
 
 module.exports = DB

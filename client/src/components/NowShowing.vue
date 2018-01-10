@@ -1,73 +1,105 @@
 <template>
   <div>
     <b-card-group columns>
-      <b-card title="Card title that wraps to a new line"
-        img-src="https://placekitten.com/g/400/450"
-        img-fluid
-        img-alt="image"
-        img-top>
-        <p class="card-text">
-          This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit
-          longer.
-        </p>
-      </b-card>
-      <b-card header="Quote">
-        <blockquote class="blockquote mb-0">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-          <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-        </blockquote>
-      </b-card>
-      <b-card title="Title"
-        img-src="https://placekitten.com/500/350"
-        img-fluid
-        img-alt="image"
-        img-top>
-        <p class="card-text">
-          This card has supporting text below as a natural lead-in to additional content.
-        </p>
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </b-card>
-      <b-card bg-variant="primary"
-        text-variant="white">
-        <blockquote class="card-blockquote">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+      <div v-for='movie in nowMovie' :key='movie.title'>
+        <b-card :title='movie.title'
+          :img-src='movie.poster'
+          img-fluid
+          img-alt="image"
+          img-top
+          @click="handleCardClick(movie)"
+        >
+          <p class="card-text text-muted">
+            {{ movie.plot }}
           </p>
-          <footer>
-            <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-          </footer>
-        </blockquote>
-      </b-card>
-      <b-card title="Title">
-        <p class="card-text">
-          This card has supporting text below as a natural lead-in to additional content.
-        </p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </b-card>
-      <b-card img-src="https://lorempixel.com/400/400/"
-        img-fluid
-        img-alt="image"
-        overlay>
-      </b-card>
-      <b-card img-src="https://lorempixel.com/400/200/"
-        img-fluid
-        img-alt="image"
-        img-top>
-        <p class="card-text">
-          This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content
-          than the first.
-        </p>
-        <div slot="footer">
-          <small class="text-muted">Footer Text</small>
-        </div>
-      </b-card>
+          <p class="card-text text-muted">
+            Genre: {{ movie.genre }}
+          </p>
+          <p class="card-text">
+            <small class="text-muted">
+              Release Date: {{ movie.released }}
+            </small>
+          </p>
+          <p class="card-text text-center">
+            <img src="../assets/tomatoes-icon.png" width="auto" height="40"> <b>{{ movie.rottenRating }}</b> 
+            <img src="../assets/metacritic-icon.png" width="auto" height="40"> <b>{{ movie.metacriticRating }}</b>
+            <img src="../assets/imdb-icon.png" width="auto" height="40"> <b>{{ movie.imdbRating }}</b>
+          </p>
+        </b-card>
+      </div>
     </b-card-group>
+    <MovieModal ref="movieModal" :movie="this.selectedMovie"></MovieModal>
   </div>
   <!-- card-group-3.vue -->
 </template>
 
 <script>
+import { NOW_MOVIE_QUERY } from '@/graphql/now_movie'
+import MovieModal from '@/components/MovieModal'
+
 export default {
-  name: 'NowShowing'
+  name: 'NowShowing',
+  data () {
+    return {
+      loading: 0,
+      nowMovie: [],
+      selectedMovie: []
+    }
+  },
+  apollo: {
+    nowMovie: {
+      query: NOW_MOVIE_QUERY
+    }
+  },
+  methods: {
+    handleCardClick (movie) {
+      this.selectedMovie = movie
+      this.$refs.movieModal.$refs.movieModal.show()
+    }
+  },
+  components: {
+    MovieModal
+  }
 }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+@media (min-width: 34em) {
+    .card-columns {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}
+
+@media (min-width: 48em) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (min-width: 62em) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media (min-width: 75em) {
+    .card-columns {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+}
+a {
+  color:inherit;
+}
+.card {
+  cursor: pointer
+}
+</style>
