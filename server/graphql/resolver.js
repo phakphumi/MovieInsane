@@ -9,9 +9,10 @@ module.exports = {
     }
   },
   Query: {
-    async allMovie (root, args, { DB }) {
-      const movies = await DB.Movie.find()
-      return movies
+    async user (root, args, { DB, user }) {
+      return {
+        isAdmin: user.isAdmin
+      }
     },
     async comingMovie (root, args, { DB }) {
       const movie_db = await DB.Movie.find({ status: "COMING" })
@@ -92,7 +93,6 @@ module.exports = {
       const { title } = args
       const movie_db = await DB.Movie.findOne({ title: title.toLowerCase() })
       const movie_api = await omdb.getMovieDetailsByTitle(title)
-      console.log(title)
       if( title === '' ) {
         return {
           title: title,
@@ -133,18 +133,22 @@ module.exports = {
     }
   },
   Mutation: {
-    async addMovie (root, args, { DB }) {
-      const movie = args
-      movie.title = movie.title.toLowerCase()
-      movie.bannerURL = movie.bannerURL
-      const newMovie = await new DB.Movie(movie)
-      return newMovie.save()
+    async addMovie (root, args, { DB, user }) {
+      if (user.isAdmin) {
+        const movie = args
+        movie.title = movie.title.toLowerCase()
+        movie.bannerURL = movie.bannerURL
+        const newMovie = await new DB.Movie(movie)
+        return newMovie.save()
+      }
     },
-    async updateMovieStatus ( root, args, { DB }) {
-      const movie = args
-      let updateMovie = await DB.Movie.findOne({ title: movie.title.toLowerCase() })
-      updateMovie.status = movie.status
-      return updateMovie.save()
+    async updateMovieStatus ( root, args, { DB, user }) {
+      if(user.isAdmin) {
+        const movie = args
+        let updateMovie = await DB.Movie.findOne({ title: movie.title.toLowerCase() })
+        updateMovie.status = movie.status
+        return updateMovie.save()
+      }
     }
   }
 }

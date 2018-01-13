@@ -3,8 +3,7 @@ import Router from 'vue-router'
 import NewArrival from '@/components/NewArrival'
 import NowShowing from '@/components/NowShowing'
 import ComingSoon from '@/components/ComingSoon'
-import AddPost from '@/components/AddPost'
-import Post from '@/components/Post'
+import AddMovie from '@/components/AddMovie'
 
 Vue.use(Router)
 
@@ -13,6 +12,11 @@ export default new Router({
     {
       path: '/',
       name: 'NewArrival',
+      component: NewArrival
+    },
+    {
+      path: '/_=_',
+      name: 'NewArrivalRe',
       component: NewArrival
     },
     {
@@ -26,15 +30,9 @@ export default new Router({
       component: ComingSoon
     },
     {
-      path: '/add',
-      name: 'AddPost',
-      component: AddPost
-    },
-    {
-      path: '/post/:id',
-      name: 'Post',
-      component: Post,
-      props: true
+      path: '/addmovie',
+      name: 'AddMovie',
+      component: AddMovie
     }
   ]
 })

@@ -11,7 +11,7 @@
           <b-nav-item :to="{ name: 'NewArrival' }" active-class>New Arrival</b-nav-item>
           <b-nav-item :to="{ name: 'NowShowing' }">Now Showing</b-nav-item>
           <b-nav-item :to="{ name: 'ComingSoon' }">Coming Soon</b-nav-item>
-          <b-nav-item :to="{ name: 'AddPost' }">Add Post</b-nav-item>
+          <b-nav-item v-if="user.isAdmin" :to="{ name: 'AddMovie' }">Add Movie</b-nav-item> 
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -20,9 +20,22 @@
 </template>
 
 <script>
+import { USER } from '@/graphql/user'
 
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+      user: {
+        isAdmin: false
+      }
+    }
+  },
+  apollo: {
+    user: {
+      query: USER
+    }
+  }
 }
 </script>
 

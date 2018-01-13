@@ -50,6 +50,9 @@ export default {
   },
   components: {
     MovieModal
+  },
+  beforeMount () {
+    this.$apollo.queries.newMovie.refetch()
   }
 }
 </script>
@@ -60,9 +63,12 @@ export default {
   width: auto;
   overflow: hidden;
   min-height: 300px;
-  cursor: pointer
+  cursor: pointer;
+  overflow: hidden;
 }
 .carousel-item > img {
-  height: inherit;
+  position: absolute;
+  width: initial;
+  height: 89vh;
 }
 </style>

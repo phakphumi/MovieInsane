@@ -23,8 +23,11 @@ module.exports = `
     fb_id: String!
     text: String!
   }
+  type User {
+    isAdmin: Boolean
+  }
   type Query {
-    allMovie: [Movie]!
+    user: User!
     comingMovie: [Movie]!
     newMovie: [Movie]!
     nowMovie: [Movie]!

@@ -133,7 +133,6 @@ export default {
       if (oldVal.searchStatus === 'found') {
         this.theatreStatus = null
       }
-      console.log(val)
 
       if (val.searchStatus === 'wait') {
         this.posterURL = null

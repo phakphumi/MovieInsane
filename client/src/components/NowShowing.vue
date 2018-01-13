@@ -59,6 +59,9 @@ export default {
   },
   components: {
     MovieModal
+  },
+  beforeMount () {
+    this.$apollo.queries.nowMovie.refetch()
   }
 }
 </script>
