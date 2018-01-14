@@ -69,6 +69,12 @@ passport.use(new FacebookStrategy({
   }
 ))
 
+app.get('/hbot', (req, res, next) => {
+  console.log('hbot')
+  console.log(req)
+  res.send({hello:'123'})
+})
+
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback', 
